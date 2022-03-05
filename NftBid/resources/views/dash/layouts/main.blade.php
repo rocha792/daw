@@ -29,7 +29,7 @@
 
         <!-- Sidebar -->
        @include('dash.layouts.sidebar')
-        <!-- End of Sidebar -->
+        <!-- End of Sidebar https://github.com/grijalvaitsncg/daw/ -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->double('base_price');
-            $table->string('img');
+            $table->string('img'); 
             $table->string('token_id');
             $table->string('token_standar');
             $table->string('blockchain_type');

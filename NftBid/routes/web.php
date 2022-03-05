@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Dash\ProductosController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +17,9 @@ use App\Http\Controllers\Front\IndexController;
 Route::get('/', function () {
     return view('front.index');
 });
-Route::get('/admin', function () {
-    return view('dash.index');
-});
+Route::get('/admin', function () { return view('dash.index');});
+Route::get('/admin/productos',[ProductosController::class, 'miFuncion']);
+
 Route::get('/contacto',function(){
     echo "HOLA ESTAS EN CONTACTO";
 });
