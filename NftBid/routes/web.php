@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dash\ProductosController;
 use App\Http\Controllers\Dash\CategoriesController;
+use App\Http\Controllers\Front\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,8 @@ use App\Http\Controllers\Dash\CategoriesController;
 |
 */
 
-Route::get('/', function () {
-    return view('front.index');
-});
+Route::get('/',[IndexController::class,'index']);
+
 Route::get('/admin', function () { return view('dash.index');});
 Route::get('/admin/productos',[ProductosController::class, 'miFuncion']);
 Route::post('/admin/productos',[ProductosController::class,'insertar']);
