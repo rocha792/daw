@@ -37,4 +37,8 @@ class CategoriesController extends Controller
             return back()->with('Listo', 'Se ha insertado correctamente');
         }
     }
+    public function destroy($id)
+    {
+        dd($id);
+    }
 }

@@ -18,12 +18,17 @@ use App\Http\Controllers\Front\IndexController;
 
 Route::get('/',[IndexController::class,'index']);
 
-Route::get('/admin', function () { return view('dash.index');});
-Route::get('/admin/productos',[ProductosController::class, 'miFuncion']);
-Route::post('/admin/productos',[ProductosController::class,'insertar']);
+Route::group(['prefix'=>'admin','as'=>'admin'],function(){
+Route::get('/', function () { return view('dash.index');});
+Route::get('/productos',[ProductosController::class, 'miFuncion']);
+Route::post('/productos',[ProductosController::class,'insertar']);
 
-Route::get('/admin/categorias',[CategoriesController::class,'index']);
-Route::post('admin/categorias',[CategoriesController::class,'Store']);
+Route::get('/categorias',[CategoriesController::class,'index']);
+//Route::post('/categorias',[CategoriesController::class,'Store']);  
+Route::resource('Categorias',CategoriesController::class);  
+});
+
+
 
 Route::get('/contacto',function(){
     echo "HOLA ESTAS EN CONTACTO";

@@ -36,8 +36,17 @@
                     <div class="card col-3">
                         <img class="card-img-top" src="{{ asset('/categories/'.$c->img)}}" alt="Card image cap">
                         <div class="card-body">
-                          <h5 class="card-title">{{$c->category}}</h5>
-                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                          <h5 class="card-title">{{ $c->category }}</h5>
+                          <form action="{{ url('/admin/Categorias',['id'=>$c->id]) }}"
+                            method="POST" id="formDelete_{{$c->id}}">
+                              @csrf
+                              <input type="hidden" value="{{$c->id}}" name="id">
+                              <input type="hidden" name="_method" value="delete">
+                          </form>
+                        <button class="btn btn-sm btn-danger btnEliminar" data-id="{{ $c->id }}" 
+                            data-target="#modalDelete" 
+                            data-toggle="modal">
+                            <i class="fa fa-trash"></i></button>
                         </div>
                       </div>
                     </div>
@@ -45,6 +54,7 @@
             </div>
 
             <!-- MODAL AGREGAR -->
+            
             <div class="modal" tabindex="-1" role="dialog" id="modalAdd">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -79,8 +89,41 @@
                 </div>
                 </div>
             </div>
+            <!--Modal Eliminar-->
+            <div class="modal" tabindex="-1" role="dialog" id="modalDelete">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Eliminar Reguistro</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Deseas eliminar el Reguistro?.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Canselar</button>  
+                      <button type="button" class="btn btn-danger" id="doEliminar">Eliminar</button
+                    </div>
+                  </div>
+                </div>
+              </div>
     </div>
 @endsection
 
-
+@section('scripts')
+    <script>
+        var idEliminar=0;
+        $(document).ready(function(){
+            $(".btnEliminar").click(function(){
+                var id= $(this).data('id');
+                idEliminar = id;
+            });
+            $("#doEliminar").click(function(){
+                $("#formDelete_"+idEliminar).submit();
+            });
+        });
+    </script>
+@endsection
 
