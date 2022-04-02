@@ -37,6 +37,12 @@
                         <img class="card-img-top" src="{{ asset('/categories/'.$c->img)}}" alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title">{{ $c->category }}</h5>
+                          <button class="btn btn-primary btn-sm btnEdit" 
+                            data-id="{{$c-id}}"
+                            data-category="{{ $c->category}}"
+                            data-target="#modaUpdate" 
+                            data-toggle="modal">
+                              <i class="fa fa-edit"></i></button>
                           <form action="{{ url('/admin/Categorias',['id'=>$c->id]) }}"
                             method="POST" id="formDelete_{{$c->id}}">
                               @csrf
@@ -54,7 +60,6 @@
             </div>
 
             <!-- MODAL AGREGAR -->
-            
             <div class="modal" tabindex="-1" role="dialog" id="modalAdd">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -66,7 +71,7 @@
                     </div>
 
 
-                    <form action="/admin/categorias" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/Categorias" method="POST" enctype="multipart/form-data">
                         @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -89,6 +94,7 @@
                 </div>
                 </div>
             </div>
+
             <!--Modal Eliminar-->
             <div class="modal" tabindex="-1" role="dialog" id="modalDelete">
                 <div class="modal-dialog" role="document">
@@ -109,7 +115,45 @@
                   </div>
                 </div>
               </div>
-    </div>
+    
+            </div>
+
+            <!-- MODAL UpDate -->
+            <div class="modal" tabindex="-1" role="dialog" id="modalUpdate">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Agregar Categorias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+
+
+                    <form action="/admin/Categorias/update" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="text" name="id" id="idEdit">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Nombre</label>
+                            <input id="nameEdit" type="text" class="form-control" placeholder="Categoria" name="name" value="{{ old ('name') }}">
+                                
+                        </div>
+                        <div class="form-group">
+                            <label for="">Imagen</label>
+                            <input type="file" class="form-control" name="img" value="{{ old('img') }}">
+                        </div> 
+                    </div>
+
+                    
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
 @endsection
 
 @section('scripts')
@@ -122,6 +166,12 @@
             });
             $("#doEliminar").click(function(){
                 $("#formDelete_"+idEliminar).submit();
+            });
+            $(".btnEdit").click(function(){
+                var id = $(this).data('id');
+                var cate = $(this).data('category');
+                $("nameEdit").val(cate);
+                $("#idEdit").val(id);
             });
         });
     </script>

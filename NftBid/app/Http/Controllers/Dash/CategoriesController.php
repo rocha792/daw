@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Validator;
+use File;
 
 
 class CategoriesController extends Controller
@@ -39,6 +40,14 @@ class CategoriesController extends Controller
     }
     public function destroy($id)
     {
-        dd($id);
+        $categoria = Category::find($id);
+        if($categoria->img != 'default.jpg'){
+            if (File::exists(public_path('categories/'.$categoria->img))){
+                unlink(public_path('categories/'.$categoria->img));
+            }
+        }
+        $categoria->delete();
+        
+        return back()->witch('Listo','El reguistro se elimino');
     }
 }
