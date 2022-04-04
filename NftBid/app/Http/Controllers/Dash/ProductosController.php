@@ -10,6 +10,10 @@ use Hash;
 
 class ProductosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middlewere('auth');
+    }
     public function miFuncion(){
         $categorias = \DB::table('categories')->get();
         $productos = \DB::table('Nfts')->orderBy('id','DESC')->get();

@@ -22,6 +22,7 @@ Route::group(['prefix'=>'admin','as'=>'admin'],function(){
 Route::get('/', function () { return view('dash.index');});
 Route::get('/productos',[ProductosController::class, 'miFuncion']);
 Route::post('/productos',[ProductosController::class,'insertar']);
+Route::post('/categorias/update', [CategoriesController::class,'update']);
 
 Route::get('/categorias',[CategoriesController::class,'index']);
 //Route::post('/categorias',[CategoriesController::class,'Store']);  
