@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Models\Nft;
 use Hash;
+use PDF;
 
 class ProductosController extends Controller
 {
@@ -61,7 +62,22 @@ class ProductosController extends Controller
             return back()->with('Listo', 'Se ha insertado correctamente');
         }
         //Llave funcion
+        
+            
+        
     }
-
+        public function reporte(){
+            $productos=\DB::table('NftBid')->get()
+            ->select('nfts.*','categorias.category',
+                'users.name as username')
+            ->join('categories','nft.id_category','=','categories.id')
+            ->join('users','nft.id_users','=','users.id')
+            ->get();
+            $datos=[
+                'fecha'=>date('Y-m-d H:i:s'),
+                'productos'=>$productos
+            ];
+            return PDF::loadView('reporte.productos',$datos)->stream('reporte.pdf');
+        }
 
 }
